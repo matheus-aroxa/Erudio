@@ -1,9 +1,10 @@
 package com.miromorii.cursoerudio.services;
 
+import com.miromorii.cursoerudio.exceptions.ResourceNotFoundException;
 import com.miromorii.cursoerudio.models.Person;
+import com.miromorii.cursoerudio.repositories.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
@@ -12,49 +13,45 @@ import java.util.logging.Logger;
 public class PersonService {
 
     private final AtomicLong counter = new AtomicLong();
-    private Logger logger = Logger.getLogger(PersonService.class.getName());
+    private final Logger logger = Logger.getLogger(PersonService.class.getName());
+    @Autowired
+    private PersonRepository personRepository;
 
     public Person findById(Long id){
         logger.info("finding one person");
-        return mockPerson(counter.incrementAndGet());
-    }
-
-    private Person mockPerson(Long id){
-        Person person = new Person();
-
-        person.setId(id);
-        person.setFirstName("firstName " + id);
-        person.setLastName("lastName " + id);
-        person.setAddress("address " + id);
-        person.setGender("male " + id);
-
-        return person;
+        return personRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     public List<Person> findAll(){
         logger.info("finding all persons");
-        List<Person> persons = new ArrayList<>();
 
-        for(int i = 1; i <= 10; i++){
-            persons.add(mockPerson(counter.incrementAndGet()));
-        }
-
-        return persons;
+        return personRepository.findAll();
     }
 
     public Person create(Person person){
         logger.info("creating person");
 
-        return mockPerson(counter.incrementAndGet());
+        return personRepository.save(person);
     }
 
     public Person update(Person person){
         logger.info("updating person");
 
-        return person;
+        Person find = personRepository.findById(person.getId()).orElseThrow(ResourceNotFoundException::new);
+
+        find.setFirstName(person.getFirstName());
+        find.setLastName(person.getLastName());
+        find.setAddress(person.getAddress());
+        find.setGender(person.getGender());
+        return personRepository.save(find);
     }
 
     public void delete(Long id){
         logger.info("deleting person");
+
+        Person find = personRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+
+        personRepository.deleteById(find.getId());
     }
+
 }

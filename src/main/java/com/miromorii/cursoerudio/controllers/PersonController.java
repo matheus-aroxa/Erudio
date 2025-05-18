@@ -4,6 +4,7 @@ import com.miromorii.cursoerudio.models.Person;
 import com.miromorii.cursoerudio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,10 +44,9 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable("id") Long id) {
+            method = RequestMethod.DELETE)
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         personService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
