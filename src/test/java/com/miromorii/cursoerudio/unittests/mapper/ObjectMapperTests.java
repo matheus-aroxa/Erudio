@@ -4,7 +4,7 @@ import static com.miromorii.cursoerudio.mapper.ObjectMapper.parseListObjects;
 import static com.miromorii.cursoerudio.mapper.ObjectMapper.parseObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
-import com.miromorii.cursoerudio.data.dto.PersonDTO;
+import com.miromorii.cursoerudio.data.dto.v1.PersonDTO;
 import com.miromorii.cursoerudio.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

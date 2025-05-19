@@ -1,27 +1,30 @@
-package com.miromorii.cursoerudio.data.dto;
+package com.miromorii.cursoerudio.data.dto.v2;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-public class PersonDTO implements Serializable {
+public class PersonDTOV2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String firstName;
     private String lastName;
+    private Date birthDay;
     private String address;
     private String gender;
 
-    public PersonDTO(Long id, String firstName, String lastName, String address, String gender) {
+    public PersonDTOV2(Long id, String firstName, String lastName, Date birthDay, String address, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthDay = birthDay;
         this.address = address;
         this.gender = gender;
     }
 
-    public PersonDTO() {
+    public PersonDTOV2() {
     }
 
     public Long getId() {
@@ -64,14 +67,22 @@ public class PersonDTO implements Serializable {
         this.gender = gender;
     }
 
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PersonDTO person)) return false;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
+        if (!(o instanceof PersonDTOV2 that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getBirthDay(), that.getBirthDay()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
+        return Objects.hash(getId(), getFirstName(), getLastName(), getBirthDay(), getAddress(), getGender());
     }
 }

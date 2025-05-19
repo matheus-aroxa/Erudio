@@ -1,8 +1,10 @@
 package com.miromorii.cursoerudio.services;
 
-import com.miromorii.cursoerudio.data.dto.PersonDTO;
+import com.miromorii.cursoerudio.data.dto.v1.PersonDTO;
+import com.miromorii.cursoerudio.data.dto.v2.PersonDTOV2;
 import com.miromorii.cursoerudio.exceptions.ResourceNotFoundException;
 import com.miromorii.cursoerudio.mapper.ObjectMapper;
+import com.miromorii.cursoerudio.mapper.custom.PersonMapper;
 import com.miromorii.cursoerudio.models.Person;
 import com.miromorii.cursoerudio.repositories.PersonRepository;
 import org.slf4j.Logger;
@@ -15,8 +17,12 @@ import java.util.List;
 public class PersonService {
 
     private final Logger logger = LoggerFactory.getLogger(PersonService.class);
+
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private PersonMapper personMapper;
 
     public PersonDTO findById(Long id){
         logger.info("finding one person");
@@ -34,6 +40,12 @@ public class PersonService {
 
         Person entity = personRepository.save(ObjectMapper.parseObject(person, Person.class));
         return ObjectMapper.parseObject(entity, PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+        logger.info("creating a person v2");
+
+        return personMapper.convertEntityToDTO(personRepository.save(personMapper.convertDTOToEntity(person)));
     }
 
     public PersonDTO update(PersonDTO person){

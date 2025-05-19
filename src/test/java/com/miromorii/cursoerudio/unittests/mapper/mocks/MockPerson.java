@@ -3,7 +3,7 @@ package com.miromorii.cursoerudio.unittests.mapper.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.miromorii.cursoerudio.data.dto.PersonDTO;
+import com.miromorii.cursoerudio.data.dto.v1.PersonDTO;
 import com.miromorii.cursoerudio.models.Person;
 
 public class MockPerson {
