@@ -1,6 +1,7 @@
 package com.miromorii.cursoerudio.exceptions.handler;
 
 import com.miromorii.cursoerudio.exceptions.ExceptionResponse;
+import com.miromorii.cursoerudio.exceptions.RequiredObjectIsNullException;
 import com.miromorii.cursoerudio.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,5 +26,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RequiredObjectIsNullException.class)
+    public ResponseEntity<ExceptionResponse> handleRequiredObjectIsNullException(RequiredObjectIsNullException ex, WebRequest request) {
+
+        ExceptionResponse response = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
