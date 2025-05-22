@@ -16,3 +16,7 @@ spring:
 logging:
   level:
     com.miromorii.cursoerudio: INFO
+springdoc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true
