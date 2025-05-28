@@ -1,9 +1,10 @@
-package com.miromorii.cursoerudio.services;
+package com.miromorii.cursoerudio.unittests.services;
 
 import com.miromorii.cursoerudio.data.dto.v1.PersonDTO;
 import com.miromorii.cursoerudio.exceptions.RequiredObjectIsNullException;
 import com.miromorii.cursoerudio.models.Person;
 import com.miromorii.cursoerudio.repositories.PersonRepository;
+import com.miromorii.cursoerudio.services.PersonService;
 import com.miromorii.cursoerudio.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,9 +1,10 @@
-package com.miromorii.cursoerudio.services;
+package com.miromorii.cursoerudio.unittests.services;
 
 import com.miromorii.cursoerudio.data.dto.v1.BookDTO;
 import com.miromorii.cursoerudio.exceptions.RequiredObjectIsNullException;
 import com.miromorii.cursoerudio.models.Book;
 import com.miromorii.cursoerudio.repositories.BookRepository;
+import com.miromorii.cursoerudio.services.BookService;
 import com.miromorii.cursoerudio.unittests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
