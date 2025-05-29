@@ -1,4 +1,4 @@
-package com.miromorii.cursoerudio.integrationtests.testcontainers.swagger;
+package com.miromorii.cursoerudio.integrationtests.swagger;
 
 import com.miromorii.cursoerudio.config.TestConfig;
 import com.miromorii.cursoerudio.integrationtests.testcontainers.AbstractIntegrationTest;
