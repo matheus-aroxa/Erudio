@@ -2,6 +2,7 @@ package com.miromorii.cursoerudio.controllers;
 
 import com.miromorii.cursoerudio.controllers.docs.PersonControllerDocs;
 import com.miromorii.cursoerudio.data.dto.v1.PersonDTO;
+import com.miromorii.cursoerudio.repositories.PersonRepository;
 import com.miromorii.cursoerudio.services.PersonService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,5 +58,13 @@ public class PersonController implements PersonControllerDocs {
     public ResponseEntity<?> delete(@PathVariable("id") @Parameter(description = "the id used for delete a person") Long id) {
         personService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}",
+        method = RequestMethod.PATCH,
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_YAML_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Override
+    public PersonDTO disable(@PathVariable Long id) {
+        return personService.disablePerson(id);
     }
 }
