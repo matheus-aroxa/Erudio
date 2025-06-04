@@ -8,4 +8,6 @@ public interface TestConfig {
     final String HEADER_PARAM_AUTHORIZATION = "Authorization";
     final String ORIGIN_X = "https://x.com/mir0mori";
     final String ORIGIN_INVALID = "https://www.linkedin.com";
+    final String ACCEPT_APPLICATION_XML = "application/xml";
+    final String ACCEPT_APPLICATION_YAML = "application/yaml";
 }

@@ -6,8 +6,6 @@ import org.springframework.hateoas.RepresentationModel;
 import java.io.Serializable;
 import java.util.Objects;
 
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
