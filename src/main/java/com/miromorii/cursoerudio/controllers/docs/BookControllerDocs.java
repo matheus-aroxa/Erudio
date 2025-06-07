@@ -7,12 +7,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,7 +47,11 @@ public interface BookControllerDocs {
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content)
             })
-    List<BookDTO> findAll();
+    ResponseEntity<PagedModel<EntityModel<BookDTO>>> findAll(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "12") Integer size,
+            @RequestParam(value = "direction", defaultValue = "asc") String direction
+    );
 
     @Operation(summary = "creates a book",
             description = "creates a book",

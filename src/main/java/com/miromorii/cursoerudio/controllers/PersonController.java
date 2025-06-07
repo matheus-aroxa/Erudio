@@ -7,10 +7,14 @@ import com.miromorii.cursoerudio.services.PersonService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/persons/v1")
@@ -31,8 +35,20 @@ public class PersonController implements PersonControllerDocs {
     @RequestMapping(method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE})
     @Override
-    public List<PersonDTO> findAll() {
-        return personService.findAll();
+    public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findAll(Integer page, Integer size, String direction) {
+        var sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "firstName"));
+        return ResponseEntity.ok(personService.findAll(pageable));
+    }
+
+    @RequestMapping(value = "/findbyname/{firstName}",
+            method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE})
+    @Override
+    public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> findByName(@PathVariable String firstName, Integer page, Integer size, String direction) {
+        var sort = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort, "firstName"));
+        return ResponseEntity.ok(personService.findByName(firstName, pageable));
     }
 
     @RequestMapping(method = RequestMethod.POST,

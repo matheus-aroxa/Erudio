@@ -9,12 +9,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.miromorii.cursoerudio.serializer.GenderSerializer;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @JacksonXmlRootElement
+@Relation(collectionRelation = "people")
 public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
     private static final long serialVersionUID = 1L;

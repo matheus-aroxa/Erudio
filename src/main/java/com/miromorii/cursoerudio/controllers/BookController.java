@@ -11,6 +11,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +41,10 @@ public class BookController implements BookControllerDocs {
     @RequestMapping(method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_YAML_VALUE})
     @Override
-    public List<BookDTO> findAll() {
-        return bookService.findAll();
+    public ResponseEntity<PagedModel<EntityModel<BookDTO>>> findAll(Integer page, Integer size, String direction) {
+        var sort = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort, "title"));
+        return ResponseEntity.ok(bookService.findAll(pageable));
     }
 
     @RequestMapping(method = RequestMethod.POST,
