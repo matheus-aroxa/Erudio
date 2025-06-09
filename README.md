@@ -42,7 +42,7 @@ API RESTful desenvolvida com Spring Boot para gerenciamento de pessoas e livros.
 ```bash
 git clone https://github.com/matheus-aroxa/Erudio.git
 cd Erudio
-./mvnw spring-boot:run
+docker compose up -d
 ```
 
 Aplicação disponível em: `http://localhost:8080`  
