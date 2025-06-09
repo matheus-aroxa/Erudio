@@ -1,0 +1,35 @@
+services:
+    postgres:
+        image: postgres:17-alpine
+        container_name: postgres-spring
+        environment:
+            POSTGRES_DB: erudio
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: root
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        networks:
+            - spring-network
+
+    erudio:
+        image: miromorii/erudio:latest
+        container_name: erudio-app
+        depends_on:
+            - postgres
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/erudio
+            SPRING_DATASOURCE_USERNAME: postgres
+            SPRING_DATASOURCE_PASSWORD: root
+        ports:
+            - "8080:8080"
+        networks:
+            - spring-network
+
+volumes:
+    postgres_data:
+
+networks:
+    spring-network:
+        driver: bridge
