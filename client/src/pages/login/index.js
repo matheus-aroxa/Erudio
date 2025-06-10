@@ -15,7 +15,7 @@ export default function Login(){
                     <button className="button" type="submit">Login</button>
                 </form>
             </section>
-            <img src={padlock} alt="padlock" />
+            <img src={padlock} alt="padlock"/>
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import './global.css';
 import React from 'react';
-import Login from './pages/login';
+import RoutesApp from './RoutesApp';
 
 export function App() {
 
   return (
-      <Login />
+      <RoutesApp/>
   );
 }
